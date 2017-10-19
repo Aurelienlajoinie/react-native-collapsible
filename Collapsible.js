@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Animated, Easing } from 'react-native';
 import { ViewPropTypes } from './config';
+import { isEqual } from 'lodash'
 
 const ANIMATED_EASING_PREFIXES = ['easeInOut', 'easeOut', 'easeIn'];
 
@@ -44,6 +45,10 @@ export default class Collapsible extends Component {
     ) {
       this.state.height.setValue(nextProps.collapsedHeight);
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !isEqual(this.state.measuring, nextState.measuring)
   }
 
   contentHandle = null;

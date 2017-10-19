@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { View, TouchableHighlight } from 'react-native';
 import Collapsible from './Collapsible';
 import { ViewPropTypes } from './config';
+import { isEqual } from 'lodash'
 
 const COLLAPSIBLE_PROPS = Object.keys(Collapsible.propTypes);
 const VIEW_PROPS = Object.keys(ViewPropTypes);
@@ -49,6 +50,10 @@ export default class Accordion extends Component {
         activeSection: nextProps.activeSection,
       });
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !isEqual(this.state.activeSection, nextState.activeSection)
   }
 
   _toggleSection(section) {
